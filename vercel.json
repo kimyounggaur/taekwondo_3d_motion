@@ -1,0 +1,28 @@
+{
+  "rewrites": [
+    {
+      "source": "/basics/:path*",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/poomsae/:path*",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/sources/:path*",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/review",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/settings",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/lab",
+      "destination": "/index.html"
+    }
+  ]
+}
