@@ -24,5 +24,7 @@
       "source": "/lab",
       "destination": "/index.html"
     }
-  ]
+  ],
+  "buildCommand": "npm run build:qa",
+  "outputDirectory": "dist-qa"
 }
