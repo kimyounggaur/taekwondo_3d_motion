@@ -1,0 +1,5 @@
+node_modules/
+dist/
+dist-qa/
+*.blend1
+.env*

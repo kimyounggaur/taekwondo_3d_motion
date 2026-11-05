@@ -1,0 +1,174 @@
+{
+  "rigVersion": "dojo-rig-1",
+  "unit": "m",
+  "up": "+Y",
+  "front": "+Z",
+  "right": "-X",
+  "motionRoot": "MotionRoot",
+  "parents": {
+    "MotionRoot": null,
+    "Hips": "MotionRoot",
+    "Spine": "Hips",
+    "Chest": "Spine",
+    "Neck": "Chest",
+    "Head": "Neck",
+    "Thigh_L": "Hips",
+    "Shin_L": "Thigh_L",
+    "Foot_L": "Shin_L",
+    "Toe_L": "Foot_L",
+    "Clavicle_L": "Chest",
+    "UpperArm_L": "Clavicle_L",
+    "Forearm_L": "UpperArm_L",
+    "Hand_L": "Forearm_L",
+    "Thumb1_L": "Hand_L",
+    "Thumb2_L": "Thumb1_L",
+    "Thumb3_L": "Thumb2_L",
+    "Index1_L": "Hand_L",
+    "Index2_L": "Index1_L",
+    "Index3_L": "Index2_L",
+    "Middle1_L": "Hand_L",
+    "Middle2_L": "Middle1_L",
+    "Middle3_L": "Middle2_L",
+    "Ring1_L": "Hand_L",
+    "Ring2_L": "Ring1_L",
+    "Ring3_L": "Ring2_L",
+    "Pinky1_L": "Hand_L",
+    "Pinky2_L": "Pinky1_L",
+    "Pinky3_L": "Pinky2_L",
+    "Thigh_R": "Hips",
+    "Shin_R": "Thigh_R",
+    "Foot_R": "Shin_R",
+    "Toe_R": "Foot_R",
+    "Clavicle_R": "Chest",
+    "UpperArm_R": "Clavicle_R",
+    "Forearm_R": "UpperArm_R",
+    "Hand_R": "Forearm_R",
+    "Thumb1_R": "Hand_R",
+    "Thumb2_R": "Thumb1_R",
+    "Thumb3_R": "Thumb2_R",
+    "Index1_R": "Hand_R",
+    "Index2_R": "Index1_R",
+    "Index3_R": "Index2_R",
+    "Middle1_R": "Hand_R",
+    "Middle2_R": "Middle1_R",
+    "Middle3_R": "Middle2_R",
+    "Ring1_R": "Hand_R",
+    "Ring2_R": "Ring1_R",
+    "Ring3_R": "Ring2_R",
+    "Pinky1_R": "Hand_R",
+    "Pinky2_R": "Pinky1_R",
+    "Pinky3_R": "Pinky2_R"
+  },
+  "restHeads": {
+    "MotionRoot": [
+      0.0,
+      0.0,
+      -0.0
+    ],
+    "Hips": [
+      0.0,
+      1.02,
+      -0.0
+    ],
+    "Spine": [
+      0.0,
+      1.18,
+      -0.0
+    ],
+    "Chest": [
+      0.0,
+      1.285,
+      -0.0
+    ],
+    "Neck": [
+      0.0,
+      1.387,
+      -0.0
+    ],
+    "Head": [
+      0.0,
+      1.44,
+      -0.0
+    ],
+    "Thigh_L": [
+      0.112,
+      0.956,
+      -0.0
+    ],
+    "Shin_L": [
+      0.13281,
+      0.52573,
+      0.06051
+    ],
+    "Foot_L": [
+      0.127,
+      0.095,
+      -0.0
+    ],
+    "Toe_L": [
+      0.133,
+      0.056,
+      0.175
+    ],
+    "Clavicle_L": [
+      0.04,
+      1.339,
+      -0.0
+    ],
+    "UpperArm_L": [
+      0.218,
+      1.339,
+      0.006
+    ],
+    "Forearm_L": [
+      0.40838,
+      1.22327,
+      -0.15691
+    ],
+    "Hand_L": [
+      0.485,
+      1.065,
+      0.025
+    ],
+    "Thigh_R": [
+      -0.112,
+      0.956,
+      -0.0
+    ],
+    "Shin_R": [
+      -0.13281,
+      0.52573,
+      0.06051
+    ],
+    "Foot_R": [
+      -0.127,
+      0.095,
+      -0.0
+    ],
+    "Toe_R": [
+      -0.133,
+      0.056,
+      0.175
+    ],
+    "Clavicle_R": [
+      -0.04,
+      1.339,
+      -0.0
+    ],
+    "UpperArm_R": [
+      -0.218,
+      1.339,
+      0.006
+    ],
+    "Forearm_R": [
+      -0.40838,
+      1.22327,
+      -0.15691
+    ],
+    "Hand_R": [
+      -0.485,
+      1.065,
+      0.025
+    ]
+  }
+}

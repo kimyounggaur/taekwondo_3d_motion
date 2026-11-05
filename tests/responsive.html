@@ -1,0 +1,16 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><title>모션 도장 화면 검수</title>
+<style>body{margin:16px;background:#e6edf2;color:#203749;font:14px system-ui}iframe{display:block;border:1px solid #9aafbd;max-width:none;background:#fff}nav{display:flex;gap:8px;margin-bottom:12px}button{padding:8px 10px}</style></head>
+<body><h1>화면 크기 검수</h1><nav aria-label="시험 화면"></nav><iframe title="수련실 시험 화면" src="/basics/B08"></iframe>
+<script type="module">
+const frame=document.querySelector('iframe')
+const nav=document.querySelector('nav')
+for(const [w,h] of [[360,800],[390,844],[844,390],[1024,768],[1366,768],[1920,1080]]){
+  const button=document.createElement('button')
+  button.textContent=w+' × '+h
+  button.addEventListener('click',()=>{frame.width=w;frame.height=h})
+  nav.append(button)
+}
+frame.width=390
+frame.height=844
+</script></body></html>

@@ -1,0 +1,2 @@
+content_id,app_step_id,official_number,cue_number,sub_action_id,source_url,source_time_start,source_time_end,motion_time_start,motion_time_end,start_stance,end_stance,active_limb,support_foot,pivot,gaze,heading,pattern_segment,notes,reviewer,review_status,motion_sha256
+taegeuk-01,,,,,https://www.kukkiwon.or.kr/base/board/read?boardManagementNo=37&boardNo=980&menuLevel=3&menuNo=62,,,,,,,,,,,,전사와 근거 확인 대기,,draft,
