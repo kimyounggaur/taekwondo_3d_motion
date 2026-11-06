@@ -83,7 +83,7 @@ function ellipse(x:number,y:number,rx:number,ry:number,rotation=0):Point[]{
 }
 export default function SoftwareScene(props:SceneProps){
   const ref=useRef<HTMLCanvasElement>(null)
-  const {asset,lesson,track,transport,view,cameraReset,zoom,feet,trace,ghost,onReady,onError}=props
+  const {asset,lesson,track,transport,view,cameraReset,zoom,focus,feet,trace,ghost,onReady,onError}=props
   useEffect(()=>{
     const canvas=ref.current
     if(!canvas)return
@@ -91,7 +91,7 @@ export default function SoftwareScene(props:SceneProps){
     if(!context){onError();return}
     const camera=new PerspectiveCamera(39,1,.05,30)
     const controls=new OrbitControls(camera,canvas)
-    controls.enablePan=false;controls.minDistance=1.75;controls.maxDistance=9
+    controls.enablePan=false;controls.minDistance=.65;controls.maxDistance=9
     controls.maxPolarAngle=Math.PI*.499
     let active=true, frame=0, sampler:MotionSampler|undefined, ghostSampler:MotionSampler|undefined
     let actor:Object3D|undefined, outline:Object3D|undefined
@@ -161,7 +161,7 @@ export default function SoftwareScene(props:SceneProps){
       canvas.height=Math.max(1,Math.round(height*dpi))
       camera.aspect=canvas.width/canvas.height
       camera.updateProjectionMatrix()
-      const fit=cameraView(view,track,camera.aspect,zoom)
+      const fit=cameraView(view,track,camera.aspect,zoom,focus)
       camera.position.copy(fit.position);controls.target.copy(fit.target);controls.update()
       invalidate()
     })
@@ -188,6 +188,6 @@ export default function SoftwareScene(props:SceneProps){
       sampler?.dispose();ghostSampler?.dispose()
       for(const object of [actor,outline])object?.traverse(o=>{if(o instanceof SkinnedMesh)o.skeleton.dispose()})
     }
-  },[asset,lesson,track,transport,view,cameraReset,zoom,feet,trace,ghost,onReady,onError])
+  },[asset,lesson,track,transport,view,cameraReset,zoom,focus,feet,trace,ghost,onReady,onError])
   return <canvas className="softwareCanvas" ref={ref} aria-label="태권도 3D 호환 화면"/>
 }

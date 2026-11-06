@@ -1,6 +1,7 @@
 import {lazy,Suspense,useCallback,useEffect,useMemo,useRef,useState,useSyncExternalStore,type CSSProperties} from 'react'
 import {ArrowLeft,ArrowRight,AudioLines,BookOpen,Check,ChevronDown,ChevronLeft,ChevronRight,CircleHelp,Expand,Footprints,Layers3,Map,Maximize,Minus,Pause,Play,Plus,Repeat2,RotateCcw,ScanLine,SkipBack,Star,Volume2,VolumeX} from 'lucide-react'
 import type {Trace} from '../engine/Scene'
+import type {CameraFocus} from '../engine/CameraView'
 import {SceneBoundary,supportsWebGL} from '../engine/SceneBoundary'
 import {loadTracks} from '../engine/asset'
 import {Transport,phaseIndex,speeds,type Speed} from '../engine/transport'
@@ -60,6 +61,7 @@ export default function Player({lesson,technique,pack,teacher,onTeacher,low,resu
   const transport=useMemo(()=>new Transport(lesson.duration),[lesson.duration])
   const snapshot=useSyncExternalStore(transport.subscribe,transport.get)
   const [view,setView]=useState<View>(defaultView),[reset,setReset]=useState(0),[zoom,setZoom]=useState(1)
+  const [focus,setFocus]=useState<CameraFocus>('full')
   const [trace,setTrace]=useState<Trace>('off'),[foot,setFoot]=useState(true),[ghost,setGhost]=useState(false),[map,setMap]=useState(false)
   const [software,setSoftware]=useState(()=>!supportsWebGL())
   const [mode,setMode]=useState<Mode>('full'),[audio,setAudio]=useState(false),[quiz,setQuiz]=useState(false)
@@ -220,7 +222,7 @@ export default function Player({lesson,technique,pack,teacher,onTeacher,low,resu
           {track&&flat?<PoseDiagram track={track} t={snapshot.t} view={view}/>:track&&
             <SceneBoundary key={attempt+'-'+software} onError={onError} fallback={<PoseDiagram track={track} t={snapshot.t} view={view}/>}>
               <Suspense fallback={null}><Stage asset={glbUrl} lesson={lesson} track={track} transport={transport} view={view}
-                cameraReset={reset} zoom={zoom} low={low} feet={foot} trace={trace}
+                cameraReset={reset} zoom={zoom} focus={focus} low={low} feet={foot} trace={trace}
                 ghost={ghost&&snapshot.state!=='Playing'} onReady={onReady} onError={onError}/></Suspense>
             </SceneBoundary>}
           {(!track||!ready)&&!flat&&<div className="canvasNotice" role="status">
@@ -229,10 +231,13 @@ export default function Player({lesson,technique,pack,teacher,onTeacher,low,resu
           <div className="viewDock" aria-label="카메라 시점">
             {views.map(v=><button key={v} aria-pressed={view===v} onClick={()=>setView(v)}>{viewLabels[v]}</button>)}
           </div>
+          <div className="bodyFocusDock" role="group" aria-label="확대할 신체 부위">
+            {([['full','전체 보기'],['upper','상체 확대'],['lower','하체 확대']] as const).map(([part,label])=><button key={part} disabled={flat} aria-pressed={focus===part} onClick={()=>setFocus(part)}>{label}</button>)}
+          </div>
           <div className="zoomDock">
             <button aria-label="확대" onClick={()=>setZoom(Math.min(1.55,zoom+.12))}><Plus size={17}/></button>
             <button aria-label="축소" onClick={()=>setZoom(Math.max(.72,zoom-.12))}><Minus size={17}/></button>
-            <button aria-label="시점 초기화" onClick={()=>{setZoom(1);setView(defaultView);setReset(reset+1)}}><ScanLine size={17}/></button>
+            <button aria-label="시점 초기화" onClick={()=>{setZoom(1);setFocus('full');setView(defaultView);setReset(reset+1)}}><ScanLine size={17}/></button>
           </div>
           <div className="axisLegend"><span><i className="tealDot"/>왼쪽</span><span><i className="amberDot"/>오른쪽</span></div>
           {map&&track&&<div className="mapCard"><strong>실제 이동 경로</strong><MovementMap track={track} t={snapshot.t}/></div>}

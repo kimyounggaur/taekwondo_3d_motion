@@ -5,35 +5,35 @@ import {OrbitControls} from 'three/addons/controls/OrbitControls.js'
 import {GLTFLoader} from 'three/addons/loaders/GLTFLoader.js'
 import {clone} from 'three/addons/utils/SkeletonUtils.js'
 import {MotionSampler} from './sample'
-import {cameraView} from './CameraView'
+import {cameraView,type CameraFocus} from './CameraView'
 import type {Transport} from './transport'
 import {frameAt,type Lesson,type Point,type Track} from '../content/lesson'
 import type {View} from '../content/techniques'
 
 export type Trace='off'|'hands'|'feet'
 export interface SceneProps {
-  asset:string; lesson:Lesson; track:Track; transport:Transport; view:View; cameraReset:number; zoom:number;
+  asset:string; lesson:Lesson; track:Track; transport:Transport; view:View; cameraReset:number; zoom:number; focus:CameraFocus;
   low:boolean; feet:boolean; trace:Trace; ghost:boolean; onReady:()=>void; onError:()=>void
 }
 const teal='#087b76'
 const amber='#c67b28'
-function Camera({view,reset,zoom,track}: {view:View;reset:number;zoom:number;track:Track}){
+function Camera({view,reset,zoom,focus,track}: {view:View;reset:number;zoom:number;focus:CameraFocus;track:Track}){
   const {camera,gl,invalidate,size}=useThree()
   useEffect(()=>{
     const controls=new OrbitControls(camera,gl.domElement)
     controls.target.set(0,.84,.12)
-    controls.enablePan=false; controls.minDistance=1.9; controls.maxDistance=9
+    controls.enablePan=false; controls.minDistance=.65; controls.maxDistance=9
     controls.maxPolarAngle=Math.PI*.49
     const change=()=>invalidate()
     controls.addEventListener('change',change)
-    const {target,position}=cameraView(view,track,size.width/size.height,zoom)
+    const {target,position}=cameraView(view,track,size.width/size.height,zoom,focus)
     camera.position.copy(position)
     camera.up.set(0,1,0)
     controls.target.copy(target)
     controls.update()
     invalidate()
     return ()=>{controls.removeEventListener('change',change);controls.dispose()}
-  },[camera,gl,invalidate,view,reset,zoom,size.width,size.height,track])
+  },[camera,gl,invalidate,view,reset,zoom,focus,size.width,size.height,track])
   return null
 }
 function Model({asset,lesson,transport,ghost,onReady}:{asset:string;lesson:Lesson;transport:Transport;ghost:boolean;onReady:()=>void}){
@@ -161,7 +161,7 @@ export default function Scene(props:SceneProps){
     <mesh rotation={[-Math.PI/2,0,0]} position={[0,-.007,0]}>
       <ringGeometry args={[1.52,1.527,96]}/><meshBasicMaterial color="#bacdd6" transparent opacity={.73}/>
     </mesh>
-    <Camera view={props.view} reset={props.cameraReset} zoom={props.zoom} track={track}/>
+    <Camera view={props.view} reset={props.cameraReset} zoom={props.zoom} focus={props.focus} track={track}/>
     <WebGLLifecycle onError={props.onError}/>
     <Suspense fallback={null}>
       <Model asset={props.asset} lesson={lesson} transport={transport} ghost={ghost} onReady={props.onReady}/>
